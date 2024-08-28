@@ -28,7 +28,6 @@ select * from travel_data
 
 -- Method 1
 
-
 With start_cte as
 (
 select customer, start_loc 
@@ -95,3 +94,23 @@ left join travel_data as td2 on td1.customer = td2.customer and td1.start_loc=td
 left join travel_data as td3 on td1.customer = td3.customer and td1.end_loc=td3.start_loc
 group by td1.customer
 
+-- Method 4
+-- Using Except
+
+with start_cte as (
+select customer,start_loc
+from travel_data
+except
+select customer,end_loc
+from travel_data
+)
+,end_cte as (
+select customer,end_loc
+from travel_data
+except
+select customer,start_loc
+from travel_data
+)
+select s.*,e.end_loc 
+from start_cte s
+inner join end_cte e  on s.customer=e.customer
