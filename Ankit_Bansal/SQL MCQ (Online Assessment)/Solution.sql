@@ -53,7 +53,7 @@ select * from game
 
 
 -- Solution
-
+use AdvanceSQL;
 select mdate, team1, SUM(case when goal.teamid = game.team1 then 1 else 0 end) as t1_score,
 team2, SUM(case when goal.teamid = game.team2 then 1 else 0 end) as t2_score
 from game left join goal on game.id = goal.matchid

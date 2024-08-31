@@ -23,7 +23,7 @@ INSERT INTO travel_data (customer, start_loc, end_loc) VALUES
     ('c3', 'Jaipur', 'Kochi');
 
 
-select * from travel_data
+select * from travel_data;
 
 
 -- Method 1
@@ -43,7 +43,7 @@ select s.customer,
 s.start_loc, 
 e.end_loc, 
 (select COUNT(customer)+1 from travel_data where customer=s.customer) as total_visited 
-from start_cte as s join end_cte as e on s.customer = e.customer
+from start_cte as s join end_cte as e on s.customer = e.customer;
 
 
 --- Method 2
@@ -62,7 +62,7 @@ Max(case when identifier = 'end_loc' then loc end) AS end_pt,
 (select COUNT(customer)+1 from travel_data where customer=cte2.customer) as total_visited
 from cte2 
 where ct=1
-group by customer
+group by customer;
 
 
 
@@ -81,7 +81,7 @@ from travel_data as td1 left join travel_data as td2 on td1.customer = td2.custo
 where td2.start_loc is null
 )
 select s.customer, s.start_loc, e.end_loc, (select COUNT(customer)+1 from travel_data where customer=s.customer) as total_visited
-from start_cte as s join end_cte as e on s.customer = e.customer 
+from start_cte as s join end_cte as e on s.customer = e.customer;
 
 
 --- Clubbing joins -removing CTE
@@ -92,7 +92,8 @@ max(case when td3.end_loc IS null then td1.end_loc end) AS end_pt
 from travel_data as td1 
 left join travel_data as td2 on td1.customer = td2.customer and td1.start_loc=td2.end_loc
 left join travel_data as td3 on td1.customer = td3.customer and td1.end_loc=td3.start_loc
-group by td1.customer
+group by td1.customer;
+
 
 -- Method 4
 -- Using Except
