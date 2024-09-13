@@ -52,9 +52,10 @@ select * from goal
 select * from game
 
 
--- Solution
-use AdvanceSQL;
+-- Solution 1
 select mdate, team1, SUM(case when goal.teamid = game.team1 then 1 else 0 end) as t1_score,
 team2, SUM(case when goal.teamid = game.team2 then 1 else 0 end) as t2_score
 from game left join goal on game.id = goal.matchid
 group by id,mdate, team1, team2
+
+-- Solution 2
